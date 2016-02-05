@@ -17,7 +17,7 @@ coming soon
 <dependency>
     <groupId>org.vaadin.addons</groupId>
 	<artifactId>vaadin-textfield-multiline</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.3</version>
 </dependency>
 
 <repository>
@@ -43,8 +43,8 @@ To see the demo, navigate to http://localhost:8080/
  
 ## Release notes
 
-### Version 0.0.1
-init
+### Version 0.0.3
+updated package structure
 
 ## Known issues
 
