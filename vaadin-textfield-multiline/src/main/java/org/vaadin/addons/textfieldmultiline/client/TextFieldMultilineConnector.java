@@ -1,8 +1,8 @@
-package org.vaadin.addons.client;
+package org.vaadin.addons.textfieldmultiline.client;
 
 import java.util.Arrays;
 
-import org.vaadin.addons.TextFieldMulitline;
+import org.vaadin.addons.textfieldmultiline.TextFieldMultiline;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -27,7 +27,7 @@ import com.vaadin.ui.TextField;
 // Connector binds client-side widget class to server-side component class
 // Connector lives in the client and the @Connect annotation specifies the
 // corresponding server-side component
-@Connect(TextFieldMulitline.class)
+@Connect(TextFieldMultiline.class)
 public class TextFieldMultilineConnector extends AbstractFieldConnector {
 
 	// ServerRpc is used to send events to server. Communication implementation

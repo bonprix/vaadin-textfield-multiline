@@ -4,7 +4,7 @@
 	<groupId>org.vaadin.addons</groupId>
 	<artifactId>vaadin-textfield-multiline</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>TextFieldMultiline Add-on</name>
 
 	<properties>
@@ -27,7 +27,8 @@
 		<url>git://github.com/bonprix/vaadin-combobox-multiselect.git</url>
 		<connection>scm:git:git://github.com/bonprix/vaadin-combobox-multiselect.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com:/bonprix/vaadin-combobox-multiselect.git</developerConnection>
-  	</scm>
+  	  <tag>HEAD</tag>
+  </scm>
 
 	<organization>
 		<name>Thorben von Hacht (Bonprix Handelsgesellschaft mbH)</name>

@@ -1,18 +1,18 @@
-package org.vaadin.addons;
+package org.vaadin.addons.textfieldmultiline;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.vaadin.addons.client.TextFieldMultilineClientRpc;
-import org.vaadin.addons.client.TextFieldMultilineServerRpc;
-import org.vaadin.addons.client.TextFieldMultilineState;
+import org.vaadin.addons.textfieldmultiline.client.TextFieldMultilineClientRpc;
+import org.vaadin.addons.textfieldmultiline.client.TextFieldMultilineServerRpc;
+import org.vaadin.addons.textfieldmultiline.client.TextFieldMultilineState;
 
 import com.vaadin.shared.MouseEventDetails;
 
 // This is the server-side UI component that provides public API 
 // for MyComponent
-public class TextFieldMulitline extends com.vaadin.ui.AbstractField<List<String>> {
+public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>> {
 
 	// To process events from the client, we implement ServerRpc
 	private TextFieldMultilineServerRpc rpc = new TextFieldMultilineServerRpc() {
@@ -24,7 +24,7 @@ public class TextFieldMulitline extends com.vaadin.ui.AbstractField<List<String>
 		}
 	};
 
-	public TextFieldMulitline() {
+	public TextFieldMultiline() {
 
 		// To receive events from the client, we register ServerRpc
 		registerRpc(rpc);

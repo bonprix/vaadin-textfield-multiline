@@ -1,4 +1,4 @@
-package org.vaadin.addons.client;
+package org.vaadin.addons.textfieldmultiline.client;
 
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;

@@ -1,6 +1,6 @@
 package org.vaadin.addons.demo;
 
-import org.vaadin.addons.TextFieldMulitline;
+import org.vaadin.addons.textfieldmultiline.TextFieldMultiline;
 
 import java.awt.TextField;
 
@@ -30,7 +30,7 @@ public class DemoUI extends UI
     protected void init(VaadinRequest request) {
 
         // Initialize our new UI component
-        final TextFieldMulitline component = new TextFieldMulitline();
+        final TextFieldMultiline component = new TextFieldMultiline();
         component.setCaption("Caption");
         component.setInputPrompt("Enter multiline here");
 

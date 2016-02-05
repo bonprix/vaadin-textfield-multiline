@@ -1,4 +1,4 @@
-package org.vaadin.addons.client;
+package org.vaadin.addons.textfieldmultiline.client;
 
 import com.vaadin.shared.AbstractFieldState;
 
