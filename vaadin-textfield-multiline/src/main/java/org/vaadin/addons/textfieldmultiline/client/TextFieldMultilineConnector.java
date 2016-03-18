@@ -1,6 +1,9 @@
 package org.vaadin.addons.textfieldmultiline.client;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import org.vaadin.addons.textfieldmultiline.TextFieldMultiline;
 
@@ -20,32 +23,23 @@ import com.vaadin.client.communication.StateChangeEvent;
 import com.vaadin.client.ui.AbstractComponentConnector;
 import com.vaadin.client.ui.AbstractFieldConnector;
 import com.vaadin.client.ui.SimpleManagedLayout;
+import com.vaadin.client.ui.VFilterSelect.FilterSelectSuggestion;
 import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.shared.ui.Connect;
+import com.vaadin.shared.ui.combobox.ComboBoxConstants;
 import com.vaadin.ui.TextField;
 
 // Connector binds client-side widget class to server-side component class
 // Connector lives in the client and the @Connect annotation specifies the
 // corresponding server-side component
 @Connect(TextFieldMultiline.class)
-public class TextFieldMultilineConnector extends AbstractFieldConnector {
+public class TextFieldMultilineConnector extends AbstractFieldConnector implements Paintable {
 
 	// ServerRpc is used to send events to server. Communication implementation
 	// is automatically created here
 	TextFieldMultilineServerRpc rpc = RpcProxy.create(TextFieldMultilineServerRpc.class, this);
 
 	public TextFieldMultilineConnector() {
-		
-		// To receive RPC events from server, we register ClientRpc implementation 
-		registerRpc(TextFieldMultilineClientRpc.class, new TextFieldMultilineClientRpc() {
-
-			@Override
-			public void setInputPrompt(String inputPrompt) {
-				getWidget().textField.setInputPrompt(inputPrompt);
-				getWidget().textField.updateFieldContent(getWidget().textField.getValue());
-			}
-
-		});
 
 		getWidget().textArea.addBlurHandler(new BlurHandler() {
 			
@@ -54,48 +48,51 @@ public class TextFieldMultilineConnector extends AbstractFieldConnector {
 				getWidget().textArea.setVisible(false);
 				getWidget().textField.setVisible(true);
 				
-				String[] entered = new String[0];
+				setValuesFromTextArea();
 				
-				String enteredString = getWidget().textArea.getValue();
-				if (!enteredString.isEmpty()) {
-					entered = enteredString.split("\\n+");
-				}
-				
-				StringBuffer sb = new StringBuffer();
-				for (int i = 0; i < entered.length; i++) {
-					sb.append(entered[i] + "\n");
-				}
-				getWidget().textArea.setValue(sb.toString());
-				
-				sb = new StringBuffer();
-				if (entered.length > 0) {
-					sb.append("(" + entered.length + ") ");
-					for (int i = 0; i < entered.length; i++) {
-						sb.append(entered[i]);
-						if (i+1 < entered.length) {
-							sb.append(", ");
-						}
-					}
-				} 
-				getWidget().textField.updateFieldContent(sb.toString());
-				debug("textField: " + sb.toString());
-				
-				debug("entered: " + entered);
-				rpc.sendEnteredValues(entered);
+				setTextFieldString(true);
 			}
 		});
-//		// We choose listed for mouse clicks for the widget
-//		getWidget().addClickHandler(new ClickHandler() {
-//			public void onClick(ClickEvent event) {
-//				final MouseEventDetails mouseDetails = MouseEventDetailsBuilder
-//						.buildMouseEventDetails(event.getNativeEvent(),
-//								getWidget().getElement());
-//				
-//				// When the widget is clicked, the event is sent to server with ServerRpc
-//				rpc.clicked(mouseDetails);
-//			}
-//		});
 
+	}
+	
+	private void setValuesFromTextArea() {
+		String[] entered = new String[0];
+		
+		String enteredString = getWidget().textArea.getValue();
+		if (!enteredString.isEmpty()) {
+			entered = enteredString.split("\\n+");
+		}
+		
+		getWidget().values = entered;
+	}
+	
+	private void setTextFieldString(boolean sendToServer) {
+		String[] values = getWidget().values;
+				
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < values.length; i++) {
+			sb.append(values[i] + "\n");
+		}
+		getWidget().textArea.setValue(sb.toString());
+		
+		sb = new StringBuffer();
+		if (values.length > 0) {
+			sb.append("(" + values.length + ") ");
+			for (int i = 0; i < values.length; i++) {
+				sb.append(values[i]);
+				if (i+1 < values.length) {
+					sb.append(", ");
+				}
+			}
+		} 
+		getWidget().textField.updateFieldContent(sb.toString());
+		debug("textField: " + sb.toString());
+		
+		if (sendToServer) {
+			debug("entered: " + values);
+			rpc.sendEnteredValues(values);
+		}
 	}
 
 	// We must implement getWidget() to cast to correct type 
@@ -121,6 +118,41 @@ public class TextFieldMultilineConnector extends AbstractFieldConnector {
 		if (getWidget().enableDebug) {
 			VConsole.error(string);
 		}
+	}
+
+	@Override
+	public void updateFromUIDL(UIDL uidl, ApplicationConnection client) {
+		debug("updateFromUIDL");
+		
+		// Inverse logic here to make the default case (text input enabled)
+        // work without additional UIDL messages
+        boolean noTextInput = uidl
+                .hasAttribute(TextFieldMultilineConstants.ATTR_NO_TEXT_INPUT)
+                && uidl.getBooleanAttribute(TextFieldMultilineConstants.ATTR_NO_TEXT_INPUT);
+        getWidget().textField.setEnabled(!noTextInput);
+
+        if (uidl.hasAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT)) {
+            // input prompt changed from server
+        	getWidget().textField.setInputPrompt(uidl
+                    .getStringAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT));
+        } else {
+        	getWidget().textField.setInputPrompt("");
+        }
+        
+		getWidget().textField.updateFieldContent(getWidget().textField.getValue());
+		
+		// Set the value from server on repaint
+		final UIDL options = uidl.getChildUIDL(0);
+
+        List<String> values = new ArrayList<String>();
+
+        for (final Iterator<?> i = options.getChildIterator(); i.hasNext();) {
+            final UIDL optionUidl = (UIDL) i.next();
+            values.add(optionUidl.getStringAttribute("value"));
+        }
+        getWidget().values = values.toArray(new String[values.size()]);
+        
+        setTextFieldString(false);
 	}
 
 }

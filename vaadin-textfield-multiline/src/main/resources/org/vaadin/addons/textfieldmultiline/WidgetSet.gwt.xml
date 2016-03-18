@@ -6,6 +6,6 @@
 	<inherits name="com.vaadin.DefaultWidgetSet" /> 
 
 	<!-- Widget styles in public -directory -->
-	<stylesheet src="public/vaadin-textfield-multiline/styles.css"/>
+	<stylesheet src="vaadin-textfield-multiline/styles.css"/>
 
 </module>

@@ -25,6 +25,9 @@ public class VTextFieldMultiline extends Composite implements Field {
 	VTextField textField = new VTextField();
 	VTextArea textArea = new VTextArea();
 	
+	// Entered values
+	public String[] values;
+	
 	/** For internal use only. May be removed or replaced in the future. */
 	public boolean enableDebug;
 	
