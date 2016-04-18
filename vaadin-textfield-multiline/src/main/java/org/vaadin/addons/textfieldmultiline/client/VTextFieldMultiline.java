@@ -42,14 +42,16 @@ public class VTextFieldMultiline extends Composite implements Field {
 			
 			@Override
 			public void onFocus(FocusEvent event) {
-				layout.setHeight((textField.getElement().getClientHeight() + 2) + "px");
-				layout.setWidth((textField.getElement().getClientWidth() + 2) + "px");
-				textArea.setWidth((textField.getElement().getClientWidth() + 2) + "px");
-				
-				textField.setVisible(false);
-				textArea.setVisible(true);
-				textArea.setFocus(true);
-				textArea.setCursorPos(textArea.getText().length());
+				if (!textField.isReadOnly()) {
+					layout.setHeight((textField.getElement().getClientHeight() + 2) + "px");
+					layout.setWidth((textField.getElement().getClientWidth() + 2) + "px");
+					textArea.setWidth((textField.getElement().getClientWidth() + 2) + "px");
+					
+					textField.setVisible(false);
+					textArea.setVisible(true);
+					textArea.setFocus(true);
+					textArea.setCursorPos(textArea.getText().length());
+				}
 			}
 			
 		});

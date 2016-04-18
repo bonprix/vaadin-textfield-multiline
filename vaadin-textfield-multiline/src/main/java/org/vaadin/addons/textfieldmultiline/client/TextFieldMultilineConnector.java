@@ -126,10 +126,15 @@ public class TextFieldMultilineConnector extends AbstractFieldConnector implemen
 		
 		// Inverse logic here to make the default case (text input enabled)
         // work without additional UIDL messages
-        boolean noTextInput = uidl
-                .hasAttribute(TextFieldMultilineConstants.ATTR_NO_TEXT_INPUT)
-                && uidl.getBooleanAttribute(TextFieldMultilineConstants.ATTR_NO_TEXT_INPUT);
-        getWidget().textField.setEnabled(!noTextInput);
+		boolean isEnabled = uidl
+                .hasAttribute(TextFieldMultilineConstants.ATTR_ENABLED)
+                && uidl.getBooleanAttribute(TextFieldMultilineConstants.ATTR_ENABLED);
+        getWidget().textField.setEnabled(isEnabled);
+        
+        boolean isReadonly = uidl
+                .hasAttribute(TextFieldMultilineConstants.ATTR_READ_ONLY)
+                && uidl.getBooleanAttribute(TextFieldMultilineConstants.ATTR_READ_ONLY);
+        getWidget().textField.setReadOnly(isReadonly);
 
         if (uidl.hasAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT)) {
             // input prompt changed from server

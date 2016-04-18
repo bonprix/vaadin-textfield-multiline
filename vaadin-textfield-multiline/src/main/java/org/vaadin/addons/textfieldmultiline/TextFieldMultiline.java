@@ -82,6 +82,11 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 
 	@Override
 	public void paintContent(PaintTarget target) throws PaintException {
+		target.addAttribute(TextFieldMultilineConstants.ATTR_ENABLED,
+                isEnabled());
+		target.addAttribute(TextFieldMultilineConstants.ATTR_READ_ONLY,
+                isReadOnly());
+		
         if (inputPrompt != null) {
             target.addAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT,
                     inputPrompt);

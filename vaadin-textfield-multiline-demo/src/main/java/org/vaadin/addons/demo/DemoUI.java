@@ -3,6 +3,8 @@ package org.vaadin.addons.demo;
 import org.vaadin.addons.textfieldmultiline.TextFieldMultiline;
 
 import java.awt.TextField;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.annotation.WebServlet;
 
@@ -28,11 +30,23 @@ public class DemoUI extends UI
 
     @Override
     protected void init(VaadinRequest request) {
-
-        // Initialize our new UI component
+    	
+    	// Initialize our new UI component
         final TextFieldMultiline component = new TextFieldMultiline();
         component.setCaption("Caption");
         component.setInputPrompt("Enter multiline here");
+        //component.setEnabled(true);
+        
+     // Initialize our new UI component
+        final TextFieldMultiline disabledComponent = new TextFieldMultiline();
+        disabledComponent.setCaption("Caption (disabled)");
+        disabledComponent.setInputPrompt("Enter multiline here");
+        List<String> list = new ArrayList<String>();
+        list.add("ABC");
+        list.add("DEF");
+        disabledComponent.setValue(list);
+        disabledComponent.setReadOnly(true);
+        
 
         // Show it in the middle of the screen
         final VerticalLayout layout = new VerticalLayout();
@@ -40,6 +54,8 @@ public class DemoUI extends UI
         layout.setSizeFull();
         layout.addComponent(component);
         layout.setComponentAlignment(component, Alignment.MIDDLE_CENTER);
+        layout.addComponent(disabledComponent);
+        layout.setComponentAlignment(disabledComponent, Alignment.MIDDLE_CENTER);
         setContent(layout);
 
     }
