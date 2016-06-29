@@ -57,14 +57,23 @@ public class TextFieldMultilineConnector extends AbstractFieldConnector implemen
 	}
 	
 	private void setValuesFromTextArea() {
-		String[] entered = new String[0];
+		String[] values = new String[0];
 		
 		String enteredString = getWidget().textArea.getValue();
 		if (!enteredString.isEmpty()) {
-			entered = enteredString.split("\\n+");
+			List<String> entered = Arrays.asList(enteredString.split("\\n+|\\t+"));
+			Iterator<String> it = entered.iterator();
+			while(it.hasNext()) {
+				String next = it.next();
+				if (next.isEmpty()) {
+					it.remove();
+				}
+			}
+			
+			values = entered.toArray(new String[0]);
 		}
 		
-		getWidget().values = entered;
+		getWidget().values = values;
 	}
 	
 	private void setTextFieldString(boolean sendToServer) {

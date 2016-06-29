@@ -36,7 +36,7 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 		// To receive events from the client, we register ServerRpc
 		registerRpc(rpc);
 		
-		setValue(new ArrayList<>(), true);
+		setValue(new ArrayList<String>(), true);
 	}
 
 	// We must override getState() to cast the state to MyComponentState
