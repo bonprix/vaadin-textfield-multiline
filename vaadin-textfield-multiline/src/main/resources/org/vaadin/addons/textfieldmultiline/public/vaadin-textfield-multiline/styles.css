@@ -8,4 +8,6 @@ div.vaadin-textfield-multiline .v-textfield {
 
 div.vaadin-textfield-multiline .v-textarea {
 	box-sizing: border-box;
+	position: relative;
+	z-index: 5000;
 }

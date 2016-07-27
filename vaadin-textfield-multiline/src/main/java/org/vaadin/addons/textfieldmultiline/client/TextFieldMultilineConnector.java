@@ -61,7 +61,7 @@ public class TextFieldMultilineConnector extends AbstractFieldConnector implemen
 		
 		String enteredString = getWidget().textArea.getValue();
 		if (!enteredString.isEmpty()) {
-			List<String> entered = Arrays.asList(enteredString.split("\\n+|\\t+"));
+			List<String> entered = new ArrayList<>(Arrays.asList(enteredString.split("\\n+|\\t+")));
 			Iterator<String> it = entered.iterator();
 			while(it.hasNext()) {
 				String next = it.next();
