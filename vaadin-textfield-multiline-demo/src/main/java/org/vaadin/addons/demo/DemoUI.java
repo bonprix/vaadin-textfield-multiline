@@ -45,7 +45,7 @@ public class DemoUI extends UI
         list.add("ABC");
         list.add("DEF");
         disabledComponent.setValue(list);
-        disabledComponent.setReadOnly(true);
+        disabledComponent.setEnabled(false);
         
 
         // Show it in the middle of the screen

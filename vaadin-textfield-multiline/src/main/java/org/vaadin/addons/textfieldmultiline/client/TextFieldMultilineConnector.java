@@ -139,6 +139,7 @@ public class TextFieldMultilineConnector extends AbstractFieldConnector implemen
                 .hasAttribute(TextFieldMultilineConstants.ATTR_ENABLED)
                 && uidl.getBooleanAttribute(TextFieldMultilineConstants.ATTR_ENABLED);
         getWidget().textField.setEnabled(isEnabled);
+        getWidget().textField.setStyleName("v-disabled", !isEnabled);
         
         boolean isReadonly = uidl
                 .hasAttribute(TextFieldMultilineConstants.ATTR_READ_ONLY)
