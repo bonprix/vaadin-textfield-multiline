@@ -2,7 +2,6 @@ package org.vaadin.addons.demo;
 
 import org.vaadin.addons.textfieldmultiline.TextFieldMultiline;
 
-import java.awt.TextField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,44 +19,42 @@ import com.vaadin.ui.VerticalLayout;
 @Theme("demo")
 @Title("TextFieldMultiselect Add-on Demo")
 @SuppressWarnings("serial")
-public class DemoUI extends UI
-{
+public class DemoUI extends UI {
 
-    @WebServlet(value = "/*", asyncSupported = true)
-    @VaadinServletConfiguration(productionMode = false, ui = DemoUI.class, widgetset = "org.vaadin.addons.demo.DemoWidgetSet")
-    public static class Servlet extends VaadinServlet {
-    }
+	@WebServlet(value = "/*", asyncSupported = true)
+	@VaadinServletConfiguration(productionMode = false, ui = DemoUI.class, widgetset = "org.vaadin.addons.demo.DemoWidgetSet")
+	public static class Servlet extends VaadinServlet {
+	}
 
-    @Override
-    protected void init(VaadinRequest request) {
-    	
-    	// Initialize our new UI component
-        final TextFieldMultiline component = new TextFieldMultiline();
-        component.setCaption("Caption");
-        component.setInputPrompt("Enter multiline here");
-        //component.setEnabled(true);
-        
-     // Initialize our new UI component
-        final TextFieldMultiline disabledComponent = new TextFieldMultiline();
-        disabledComponent.setCaption("Caption (disabled)");
-        disabledComponent.setInputPrompt("Enter multiline here");
-        List<String> list = new ArrayList<String>();
-        list.add("ABC");
-        list.add("DEF");
-        disabledComponent.setValue(list);
-        disabledComponent.setEnabled(false);
-        
+	@Override
+	protected void init(VaadinRequest request) {
 
-        // Show it in the middle of the screen
-        final VerticalLayout layout = new VerticalLayout();
-        layout.setStyleName("demoContentLayout");
-        layout.setSizeFull();
-        layout.addComponent(component);
-        layout.setComponentAlignment(component, Alignment.MIDDLE_CENTER);
-        layout.addComponent(disabledComponent);
-        layout.setComponentAlignment(disabledComponent, Alignment.MIDDLE_CENTER);
-        setContent(layout);
+		// Initialize our new UI component
+		final TextFieldMultiline component = new TextFieldMultiline();
+		component.setCaption("Caption");
+		component.setInputPrompt("Enter multiline here");
+		// component.setEnabled(true);
 
-    }
+		// Initialize our new UI component
+		final TextFieldMultiline disabledComponent = new TextFieldMultiline();
+		disabledComponent.setCaption("Caption (disabled)");
+		disabledComponent.setInputPrompt("Enter multiline here");
+		List<String> list = new ArrayList<>();
+		list.add("ABC");
+		list.add("DEF");
+		disabledComponent.setValue(list);
+		disabledComponent.setEnabled(false);
+
+		// Show it in the middle of the screen
+		final VerticalLayout layout = new VerticalLayout();
+		layout.setStyleName("demoContentLayout");
+		layout.setSizeFull();
+		layout.addComponent(component);
+		layout.setComponentAlignment(component, Alignment.MIDDLE_CENTER);
+		layout.addComponent(disabledComponent);
+		layout.setComponentAlignment(disabledComponent, Alignment.MIDDLE_CENTER);
+		setContent(layout);
+
+	}
 
 }

@@ -6,6 +6,4 @@ import com.vaadin.shared.communication.ClientRpc;
 // For sending information about the changes to component state, use State instead
 public interface TextFieldMultilineClientRpc extends ClientRpc {
 
-//	void setInputPrompt(String inputPrompt);
-
 }

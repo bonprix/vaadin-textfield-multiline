@@ -4,14 +4,14 @@
 	<groupId>org.vaadin.addons</groupId>
 	<artifactId>vaadin-textfield-multiline-demo</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.11-SNAPSHOT</version>
+	<version>0.0.12-SNAPSHOT</version>
 	<name>TextFieldMultiline Add-on Demo</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<vaadin.version>7.6.2</vaadin.version>
+		<vaadin.version>8.0.7</vaadin.version>
 		<vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
 		<jetty.plugin.version>9.2.3.v20140905</jetty.plugin.version>
 	</properties>

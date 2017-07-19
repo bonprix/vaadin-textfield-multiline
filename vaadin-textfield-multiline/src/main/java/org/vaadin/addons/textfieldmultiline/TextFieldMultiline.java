@@ -12,14 +12,12 @@ import org.vaadin.addons.textfieldmultiline.client.TextFieldMultilineState;
 
 import com.vaadin.server.PaintException;
 import com.vaadin.server.PaintTarget;
-import com.vaadin.server.Resource;
-import com.vaadin.shared.ui.combobox.ComboBoxConstants;
 import com.vaadin.ui.LegacyComponent;
 
 // This is the server-side UI component that provides public API 
 // for MyComponent
 public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>> implements LegacyComponent {
-	
+
 	private String inputPrompt = null;
 
 	// To process events from the client, we implement ServerRpc
@@ -34,8 +32,8 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 	public TextFieldMultiline() {
 
 		// To receive events from the client, we register ServerRpc
-		registerRpc(rpc);
-		
+		registerRpc(this.rpc);
+
 		setValue(new ArrayList<String>(), true);
 	}
 
@@ -45,65 +43,65 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 		return (TextFieldMultilineState) super.getState();
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Class<? extends List<String>> getType() {
-		return (Class<? extends List<String>>) new ArrayList<String>().getClass();
+	/**
+	 * Gets the current input prompt.
+	 * 
+	 * @see #setInputPrompt(String)
+	 * @return the current input prompt, or null if not enabled
+	 */
+	public String getInputPrompt() {
+		return this.inputPrompt;
 	}
-	
-    /**
-     * Gets the current input prompt.
-     * 
-     * @see #setInputPrompt(String)
-     * @return the current input prompt, or null if not enabled
-     */
-    public String getInputPrompt() {
-        return inputPrompt;
-    }
 
-    /**
-     * Sets the input prompt - a textual prompt that is displayed when the
-     * select would otherwise be empty, to prompt the user for input.
-     * 
-     * @param inputPrompt
-     *            the desired input prompt, or null to disable
-     */
-    public void setInputPrompt(String inputPrompt) {
-        this.inputPrompt = inputPrompt;
-        markAsDirty();
-    }
-
+	/**
+	 * Sets the input prompt - a textual prompt that is displayed when the
+	 * select would otherwise be empty, to prompt the user for input.
+	 * 
+	 * @param inputPrompt
+	 *            the desired input prompt, or null to disable
+	 */
+	public void setInputPrompt(String inputPrompt) {
+		this.inputPrompt = inputPrompt;
+		markAsDirty();
+	}
 
 	@Override
 	public void changeVariables(Object source, Map<String, Object> variables) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void paintContent(PaintTarget target) throws PaintException {
-		target.addAttribute(TextFieldMultilineConstants.ATTR_ENABLED,
-                isEnabled());
-		target.addAttribute(TextFieldMultilineConstants.ATTR_READ_ONLY,
-                isReadOnly());
-		
-        if (inputPrompt != null) {
-            target.addAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT,
-                    inputPrompt);
-        }
-        
-        target.startTag("options");
-        
-        final Iterator<String> i = getValue().iterator();
-        // Paints the available selection options from the value
-        while (i.hasNext()) {
-            final String value = i.next();
+		target.addAttribute(TextFieldMultilineConstants.ATTR_ENABLED, isEnabled());
+		target.addAttribute(TextFieldMultilineConstants.ATTR_READ_ONLY, isReadOnly());
 
-            // Paints the option
-            target.startTag("so");
-            target.addAttribute("value", value);
-            target.endTag("so");
-        }
-        target.endTag("options");
+		if (this.inputPrompt != null) {
+			target.addAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT, this.inputPrompt);
+		}
+
+		target.startTag("options");
+
+		final Iterator<String> i = getValue().iterator();
+		// Paints the available selection options from the value
+		while (i.hasNext()) {
+			final String value = i.next();
+
+			// Paints the option
+			target.startTag("so");
+			target.addAttribute("value", value);
+			target.endTag("so");
+		}
+		target.endTag("options");
+	}
+
+	@Override
+	public List<String> getValue() {
+		return getState().value;
+	}
+
+	@Override
+	protected void doSetValue(List<String> value) {
+		getState().value = value;
 	}
 }
