@@ -12,8 +12,6 @@ import org.vaadin.addons.textfieldmultiline.client.TextFieldMultilineState;
 
 import com.vaadin.server.PaintException;
 import com.vaadin.server.PaintTarget;
-import com.vaadin.server.Resource;
-import com.vaadin.shared.ui.combobox.ComboBoxConstants;
 import com.vaadin.ui.LegacyComponent;
 
 // This is the server-side UI component that provides public API 
@@ -27,7 +25,7 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 
 		@Override
 		public void sendEnteredValues(String[] entered) {
-			setValue(Arrays.asList(entered));
+			setValue(new ArrayList<>(Arrays.asList(entered)));
 		}
 	};
 

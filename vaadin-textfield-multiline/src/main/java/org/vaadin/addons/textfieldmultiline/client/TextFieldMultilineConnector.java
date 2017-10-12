@@ -7,27 +7,15 @@ import java.util.List;
 
 import org.vaadin.addons.textfieldmultiline.TextFieldMultiline;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Widget;
 import com.vaadin.client.ApplicationConnection;
-import com.vaadin.client.MouseEventDetailsBuilder;
 import com.vaadin.client.Paintable;
 import com.vaadin.client.UIDL;
 import com.vaadin.client.VConsole;
 import com.vaadin.client.communication.RpcProxy;
 import com.vaadin.client.communication.StateChangeEvent;
-import com.vaadin.client.ui.AbstractComponentConnector;
 import com.vaadin.client.ui.AbstractFieldConnector;
-import com.vaadin.client.ui.SimpleManagedLayout;
-import com.vaadin.client.ui.VFilterSelect.FilterSelectSuggestion;
-import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.shared.ui.Connect;
-import com.vaadin.shared.ui.combobox.ComboBoxConstants;
-import com.vaadin.ui.TextField;
 
 // Connector binds client-side widget class to server-side component class
 // Connector lives in the client and the @Connect annotation specifies the
@@ -56,7 +44,7 @@ public class TextFieldMultilineConnector extends AbstractFieldConnector implemen
 
 	}
 	
-	private void setValuesFromTextArea() {
+	public void setValuesFromTextArea() {
 		String[] values = new String[0];
 		
 		String enteredString = getWidget().textArea.getValue();
@@ -76,7 +64,7 @@ public class TextFieldMultilineConnector extends AbstractFieldConnector implemen
 		getWidget().values = values;
 	}
 	
-	private void setTextFieldString(boolean sendToServer) {
+	public void setTextFieldString(boolean sendToServer) {
 		String[] values = getWidget().values;
 				
 		StringBuffer sb = new StringBuffer();
