@@ -4,7 +4,7 @@
 	<groupId>org.vaadin.addons</groupId>
 	<artifactId>vaadin-textfield-multiline-demo</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.11-SNAPSHOT</version>
+	<version>0.0.12-SNAPSHOT</version>
 	<name>TextFieldMultiline Add-on Demo</name>
 
 	<properties>
@@ -16,60 +16,24 @@
 		<jetty.plugin.version>9.2.3.v20140905</jetty.plugin.version>
 	</properties>
 
-    <scm>
-		<url>git://github.com/bonprix/vaadin-combobox-multiselect.git</url>
-		<connection>scm:git:git://github.com/bonprix/vaadin-combobox-multiselect.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:/bonprix/vaadin-combobox-multiselect.git</developerConnection>
-  	  <tag>HEAD</tag>
-  </scm>
-
-	<organization>
-		<name>Thorben von Hacht (Bonprix Handelsgesellschaft mbH)</name>
-		<url>https://github.com/bonprix/vaadin-textfield-multiline</url>
-	</organization>
-
-	<issueManagement>
-		<system>GitHub</system>
-		<url>https://github.com/bonprix/vaadin-textfield-multiline/issues</url>
-	</issueManagement>
-
-	<licenses>
+ 
+ 	<licenses>
 		<license>
-			<name>The MIT License (MIT)</name>
-			<url>http://opensource.org/licenses/MIT</url>
+			<name>Apache 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
 		</license>
 	</licenses>
-
+ 	
+ 
 	<repositories>
 		<repository>
 			<id>vaadin-addons</id>
 			<url>http://maven.vaadin.com/vaadin-addons</url>
-		</repository>
-		<repository>
-			<id>vaadin-snapshots</id>
-			<url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
+		</repository>		
 	</repositories>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>vaadin-snapshots</id>
-			<url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-	</pluginRepositories>
-
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -111,7 +75,6 @@
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -237,17 +200,37 @@
 			<activation>
 				<activeByDefault>false</activeByDefault>
 			</activation>
-			
+
 			<repositories>
 				<repository>
 					<id>vaadin-prereleases</id>
 					<url>http://maven.vaadin.com/vaadin-prereleases</url>
+				</repository>
+				<repository>
+					<id>vaadin-snapshots</id>
+					<url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
 				</repository>
 			</repositories>
 			<pluginRepositories>
 				<pluginRepository>
 					<id>vaadin-prereleases</id>
 					<url>http://maven.vaadin.com/vaadin-prereleases</url>
+				</pluginRepository>
+				<pluginRepository>
+					<id>vaadin-snapshots</id>
+					<url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
 				</pluginRepository>
 			</pluginRepositories>
 		</profile>

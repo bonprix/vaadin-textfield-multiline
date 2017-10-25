@@ -5,38 +5,15 @@
 	<artifactId>vaadin-textfield-multiline-root</artifactId>
 	<packaging>pom</packaging>
 	<version>0.0.12-SNAPSHOT</version>
-	<name>TextFieldMultiline Add-on Root Project</name>
+	<name>TextFieldMultiline Add-on Project</name>
 
 	<modules>
 		<module>vaadin-textfield-multiline</module>
 		<module>vaadin-textfield-multiline-demo</module>
 	</modules>
 
-	<developers>
-		<developer>
-			<name>Thorben von Hacht</name>
-			<email>thorben.vonhacht@bonprix.net</email>
-			<organization>Bonprix Handelsgesellschaft mbH</organization>
-			<url>http://www.bonprix.de</url>
-		</developer>
-	</developers>
-
-	<licenses>
-		<license>
-			<name>The MIT License (MIT)</name>
-			<url>http://opensource.org/licenses/MIT</url>
-		</license>
-	</licenses>
-
-	<scm>
-		<url>git://github.com/bonprix/vaadin-textfield-multiline.git</url>
-		<connection>scm:git:git://github.com/bonprix/vaadin-textfield-multiline.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:/bonprix/vaadin-textfield-multiline</developerConnection>
-  	  <tag>HEAD</tag>
-  </scm>
-
-
-	<profiles>
+	
+		<profiles>
 		<profile>
 			<!-- Vaadin pre-release repositories -->
 			<id>vaadin-prerelease</id>
@@ -49,11 +26,31 @@
 					<id>vaadin-prereleases</id>
 					<url>http://maven.vaadin.com/vaadin-prereleases</url>
 				</repository>
+				<repository>
+					<id>vaadin-snapshots</id>
+					<url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
 			</repositories>
 			<pluginRepositories>
 				<pluginRepository>
 					<id>vaadin-prereleases</id>
 					<url>http://maven.vaadin.com/vaadin-prereleases</url>
+				</pluginRepository>
+				<pluginRepository>
+					<id>vaadin-snapshots</id>
+					<url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
 				</pluginRepository>
 			</pluginRepositories>
 		</profile>
