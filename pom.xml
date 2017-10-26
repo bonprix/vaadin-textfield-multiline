@@ -4,8 +4,12 @@
 	<groupId>org.vaadin.addons</groupId>
 	<artifactId>vaadin-textfield-multiline-root</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.12-SNAPSHOT</version>
+	<version>0.0.13-SNAPSHOT</version>
 	<name>TextFieldMultiline Add-on Project</name>
+
+	<prerequisites>
+		<maven>3</maven>
+	</prerequisites>
 
 	<modules>
 		<module>vaadin-textfield-multiline</module>
@@ -13,7 +17,7 @@
 	</modules>
 
 	
-		<profiles>
+	<profiles>
 		<profile>
 			<!-- Vaadin pre-release repositories -->
 			<id>vaadin-prerelease</id>
