@@ -17,38 +17,38 @@ import com.vaadin.ui.LegacyComponent;
 // This is the server-side UI component that provides public API 
 // for MyComponent
 public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>> implements LegacyComponent {
-	
-	private String inputPrompt = null;
 
-	// To process events from the client, we implement ServerRpc
-	private TextFieldMultilineServerRpc rpc = new TextFieldMultilineServerRpc() {
+    private String inputPrompt = null;
 
-		@Override
-		public void sendEnteredValues(String[] entered) {
-			setValue(new ArrayList<>(Arrays.asList(entered)));
-		}
-	};
+    // To process events from the client, we implement ServerRpc
+    private TextFieldMultilineServerRpc rpc = new TextFieldMultilineServerRpc() {
 
-	public TextFieldMultiline() {
+        @Override
+        public void sendEnteredValues(String[] entered) {
+            setValue(new ArrayList<>(Arrays.asList(entered)));
+        }
+    };
 
-		// To receive events from the client, we register ServerRpc
-		registerRpc(rpc);
-		
-		setValue(new ArrayList<String>(), true);
-	}
+    public TextFieldMultiline() {
 
-	// We must override getState() to cast the state to MyComponentState
-	@Override
-	protected TextFieldMultilineState getState() {
-		return (TextFieldMultilineState) super.getState();
-	}
+        // To receive events from the client, we register ServerRpc
+        registerRpc(rpc);
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Class<? extends List<String>> getType() {
-		return (Class<? extends List<String>>) new ArrayList<String>().getClass();
-	}
-	
+        setValue(new ArrayList<String>(), true);
+    }
+
+    // We must override getState() to cast the state to MyComponentState
+    @Override
+    protected TextFieldMultilineState getState() {
+        return (TextFieldMultilineState) super.getState();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Class<? extends List<String>> getType() {
+        return (Class<? extends List<String>>) ArrayList.class;
+    }
+
     /**
      * Gets the current input prompt.
      * 
@@ -60,38 +60,37 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
     }
 
     /**
-     * Sets the input prompt - a textual prompt that is displayed when the
-     * select would otherwise be empty, to prompt the user for input.
+     * Sets the input prompt - a textual prompt that is displayed when the select would otherwise be empty, to prompt the user for input.
      * 
-     * @param inputPrompt
-     *            the desired input prompt, or null to disable
+     * @param inputPrompt the desired input prompt, or null to disable
      */
     public void setInputPrompt(String inputPrompt) {
         this.inputPrompt = inputPrompt;
         markAsDirty();
     }
 
+    @Override
+    public void changeVariables(Object source, Map<String, Object> variables) {
+        // TODO Auto-generated method stub
 
-	@Override
-	public void changeVariables(Object source, Map<String, Object> variables) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void paintContent(PaintTarget target) throws PaintException {
-		target.addAttribute(TextFieldMultilineConstants.ATTR_ENABLED,
-                isEnabled());
-		target.addAttribute(TextFieldMultilineConstants.ATTR_READ_ONLY,
-                isReadOnly());
-		
+    @Override
+    public void clear() {
+        super.clear();
+        this.setValue(new ArrayList<String>());
+    }
+
+    @Override
+    public void paintContent(PaintTarget target) throws PaintException {
+        target.addAttribute(TextFieldMultilineConstants.ATTR_ENABLED, isEnabled());
+        target.addAttribute(TextFieldMultilineConstants.ATTR_READ_ONLY, isReadOnly());
+
         if (inputPrompt != null) {
-            target.addAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT,
-                    inputPrompt);
+            target.addAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT, inputPrompt);
         }
-        
+
         target.startTag("options");
-        
         final Iterator<String> i = getValue().iterator();
         // Paints the available selection options from the value
         while (i.hasNext()) {
@@ -103,5 +102,5 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
             target.endTag("so");
         }
         target.endTag("options");
-	}
+    }
 }
