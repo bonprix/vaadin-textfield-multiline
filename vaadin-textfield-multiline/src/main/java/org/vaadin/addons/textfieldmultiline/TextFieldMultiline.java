@@ -46,7 +46,7 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
     @SuppressWarnings("unchecked")
     @Override
     public Class<? extends List<String>> getType() {
-        return (Class<? extends List<String>>) ArrayList.class;
+        return (Class<? extends List<String>>) new ArrayList<String>().getClass();
     }
 
     /**
