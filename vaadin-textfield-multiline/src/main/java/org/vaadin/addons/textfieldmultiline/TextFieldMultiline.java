@@ -77,7 +77,7 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 
     @Override
     public void clear() {
-        super.clear();
+        // super.clear();
         this.setValue(new ArrayList<String>());
     }
 
