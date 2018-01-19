@@ -12,23 +12,18 @@ div.vaadin-textfield-multiline .v-textarea {
 	z-index: 5000;
 }
 
-.resetbuttonfortextfieldmultiline-textfield {
-    padding-right: 16pt !important;
+div.vaadin-textfield-multiline {
+	position: relative;
 }
 
 .resetbuttonfortextfieldmultiline-resetbutton {
-    position: relative;
-    display: inline-block;
-    right: 24px;
-    margin-right: -24px;
-    cursor: pointer;
-    width: 16px;
-    height: 24px;
-    background-image: url('resetbutton-default.svg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    position: absolute;
+	top: 50%;
+	right: 8px;
+	margin-top: -8px; /*half of the height in order be center the middle of the image*/
+	height: 16px;
+	width: 16px;
+	background: url('resetbutton-default.svg') no-repeat center center;
 }
 
 .resetbuttonfortextfieldmultiline-resetbutton:hover {

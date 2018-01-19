@@ -1,27 +1,18 @@
 package org.vaadin.addons.textfieldmultiline.client;
 
-import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.FocusHandler;
-import com.google.gwt.event.dom.client.KeyDownEvent;
-import com.google.gwt.event.dom.client.KeyDownHandler;
-import com.google.gwt.layout.client.Layout;
 import com.google.gwt.user.client.ui.Composite;
-import com.vaadin.client.ApplicationConnection;
-import com.vaadin.client.VConsole;
+import com.google.gwt.user.client.ui.HTML;
 import com.vaadin.client.ui.Field;
 import com.vaadin.client.ui.VTextArea;
 import com.vaadin.client.ui.VTextField;
 import com.vaadin.client.ui.VVerticalLayout;
-import com.vaadin.event.FieldEvents.BlurEvent;
-import com.vaadin.event.FieldEvents.BlurListener;
-import com.vaadin.event.FieldEvents.FocusListener;
-
-import elemental.events.KeyboardEvent.KeyCode;
 
 // Extend any GWT Widget
 public class VTextFieldMultiline extends Composite implements Field {
 
+	HTML resetButtonImage = new HTML();
 	VTextField textField = new VTextField();
 	VTextArea textArea = new VTextArea();
 	
@@ -32,7 +23,9 @@ public class VTextFieldMultiline extends Composite implements Field {
 	public boolean enableDebug;
 	
 	public VTextFieldMultiline() {
-		
+
+		resetButtonImage.setStyleName("resetbuttonfortextfieldmultiline-resetbutton");
+
 		textArea.setVisible(false);
 		textArea.setRows(5);
 		
@@ -58,6 +51,7 @@ public class VTextFieldMultiline extends Composite implements Field {
 		
 		layout.add(textField);
 		layout.add(textArea);
+		layout.add(resetButtonImage);
 		initWidget(layout);
 		
 		// CSS class-name should not be v- prefixed

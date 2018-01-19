@@ -19,6 +19,7 @@ import com.vaadin.ui.LegacyComponent;
 public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>> implements LegacyComponent {
 
     private String inputPrompt = null;
+    private boolean resetButtonEnabled;
 
     // To process events from the client, we implement ServerRpc
     private TextFieldMultilineServerRpc rpc = new TextFieldMultilineServerRpc() {
@@ -69,6 +70,15 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
         markAsDirty();
     }
 
+    public boolean isResetButtonEnabled() {
+        return this.resetButtonEnabled;
+    }
+
+    public void setResetButtonEnabled(boolean resetButtonEnabled) {
+        this.resetButtonEnabled = resetButtonEnabled;
+        markAsDirty();
+    }
+
     @Override
     public void changeVariables(Object source, Map<String, Object> variables) {
         // TODO Auto-generated method stub
@@ -88,6 +98,10 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 
         if (inputPrompt != null) {
             target.addAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT, inputPrompt);
+        }
+
+        if (resetButtonEnabled) {
+            target.addAttribute(TextFieldMultilineConstants.ATTR_RESET_BUTTON_ENABLED, true);
         }
 
         target.startTag("options");
