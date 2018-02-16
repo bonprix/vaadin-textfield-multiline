@@ -86,9 +86,14 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
     }
 
     @Override
-    public void clear() {
-        // super.clear();
-        this.setValue(new ArrayList<String>());
+    protected void setValue(List<String> newFieldValue, final boolean repaintIsNotNeeded, final boolean ignoreReadOnly) {
+
+        // Null value is not supported by the component, so we always put empty list in case of null
+        if (newFieldValue == null) {
+            newFieldValue = new ArrayList<>();
+        }
+
+        super.setValue(newFieldValue, repaintIsNotNeeded, ignoreReadOnly);
     }
 
     @Override
