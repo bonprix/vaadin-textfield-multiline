@@ -40,6 +40,7 @@ public class DemoUI extends UI {
         final TextFieldMultiline component = new TextFieldMultiline();
         component.setCaption("Caption");
         component.setInputPrompt("Enter multiline here");
+        component.setResetButtonEnabled(true);
         // component.setEnabled(true);
 
         // Initialize our new UI component

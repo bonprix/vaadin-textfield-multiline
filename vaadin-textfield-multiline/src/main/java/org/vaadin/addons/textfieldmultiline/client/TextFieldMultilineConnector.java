@@ -8,6 +8,8 @@ import java.util.List;
 import org.vaadin.addons.textfieldmultiline.TextFieldMultiline;
 
 import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.vaadin.client.ApplicationConnection;
 import com.vaadin.client.Paintable;
 import com.vaadin.client.UIDL;
@@ -38,6 +40,19 @@ public class TextFieldMultilineConnector extends AbstractFieldConnector implemen
 				
 				setValuesFromTextArea();
 				
+				setTextFieldString(true);
+			}
+		});
+
+		getWidget().resetButtonImage.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+
+				getWidget().textArea.setValue("", true);
+				getWidget().textArea.valueChange(true);
+				getWidget().textArea.updateFieldContent("");
+
+				setValuesFromTextArea();
 				setTextFieldString(true);
 			}
 		});
@@ -154,7 +169,13 @@ public class TextFieldMultilineConnector extends AbstractFieldConnector implemen
             values.add(optionUidl.getStringAttribute("value"));
         }
         getWidget().values = values.toArray(new String[values.size()]);
-        
+
+        if (!values.isEmpty() && uidl.hasAttribute(TextFieldMultilineConstants.ATTR_RESET_BUTTON_ENABLED)) {
+			getWidget().resetButtonImage.setVisible(true);
+		} else {
+			getWidget().resetButtonImage.setVisible(false);
+		}
+
         setTextFieldString(false);
 	}
 
