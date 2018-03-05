@@ -25,3 +25,7 @@ src/main/webapp/VAADIN/widgetsets/*
 .classpath
 .project
 */.settings/
+
+#Intellij IDEA
+.idea
+*.iml
