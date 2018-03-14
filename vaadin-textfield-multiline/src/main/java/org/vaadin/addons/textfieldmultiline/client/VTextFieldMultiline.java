@@ -15,7 +15,8 @@ public class VTextFieldMultiline extends Composite implements Field {
 	HTML resetButtonImage = new HTML();
 	VTextField textField = new VTextField();
 	VTextArea textArea = new VTextArea();
-	
+	VVerticalLayout layout  = new VVerticalLayout();;
+
 	// Entered values
 	public String[] values;
 	
@@ -28,16 +29,14 @@ public class VTextFieldMultiline extends Composite implements Field {
 
 		textArea.setVisible(false);
 		textArea.setRows(5);
-		
-		final VVerticalLayout layout = new VVerticalLayout();
-		
+
+		textField.addStyleName("v-widget");
 		textField.addFocusHandler(new FocusHandler() {
 			
 			@Override
 			public void onFocus(FocusEvent event) {
 				if (!textField.isReadOnly()) {
 					layout.setHeight((textField.getElement().getClientHeight() + 2) + "px");
-					layout.setWidth((textField.getElement().getClientWidth() + 2) + "px");
 					textArea.setWidth((textField.getElement().getClientWidth() + 2) + "px");
 					
 					textField.setVisible(false);
@@ -61,4 +60,18 @@ public class VTextFieldMultiline extends Composite implements Field {
 		
 	}
 
+	@Override
+	public void setWidth(String width) {
+		super.setWidth(width);
+		layout.setWidth(width);
+		textField.setWidth(width);
+		textArea.setWidth(width);
+	}
+
+	@Override
+	public void setHeight(String height) {
+		super.setHeight(height);
+		layout.setHeight(height);
+		textField.setHeight(height);
+	}
 }

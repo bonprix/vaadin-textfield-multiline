@@ -2,7 +2,6 @@ package org.vaadin.addons.textfieldmultiline;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -110,15 +109,15 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
         }
 
         target.startTag("options");
-        final Iterator<String> i = getValue().iterator();
-        // Paints the available selection options from the value
-        while (i.hasNext()) {
-            final String value = i.next();
 
-            // Paints the option
-            target.startTag("so");
-            target.addAttribute("value", value);
-            target.endTag("so");
+        if (getValue() != null) {
+            // Paints the available selection options from the value
+            for (String value : getValue()) {
+                // Paints the option
+                target.startTag("so");
+                target.addAttribute("value", value);
+                target.endTag("so");
+            }
         }
         target.endTag("options");
     }
