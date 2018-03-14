@@ -2,7 +2,6 @@ package org.vaadin.addons.textfieldmultiline;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +24,7 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 
 		@Override
 		public void sendEnteredValues(String[] entered) {
-			setValue(Arrays.asList(entered));
+            setValue(new ArrayList<>(Arrays.asList(entered)));
 		}
 	};
 
@@ -71,6 +70,17 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 
 	}
 
+    @Override
+    protected boolean setValue(List<String> newFieldValue, final boolean userOriented) {
+
+        // Null value is not supported by the component, so we always put empty list in case of null
+        if (newFieldValue == null) {
+            newFieldValue = new ArrayList<>();
+        }
+
+        return super.setValue(newFieldValue, userOriented);
+    }
+
 	@Override
 	public void paintContent(PaintTarget target) throws PaintException {
 		target.addAttribute(TextFieldMultilineConstants.ATTR_ENABLED, isEnabled());
@@ -82,16 +92,15 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 
 		target.startTag("options");
 
-		final Iterator<String> i = getValue().iterator();
-		// Paints the available selection options from the value
-		while (i.hasNext()) {
-			final String value = i.next();
-
-			// Paints the option
-			target.startTag("so");
-			target.addAttribute("value", value);
-			target.endTag("so");
-		}
+        if (getValue() != null) {
+		    // Paints the available selection options from the value
+            for (final String value : getValue()) {
+                // Paints the option
+                target.startTag("so");
+                target.addAttribute("value", value);
+                target.endTag("so");
+		    }
+        }
 		target.endTag("options");
 	}
 
