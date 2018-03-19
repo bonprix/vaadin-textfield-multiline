@@ -8,6 +8,8 @@ import java.util.List;
 import org.vaadin.addons.textfieldmultiline.TextFieldMultiline;
 
 import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.vaadin.client.ApplicationConnection;
 import com.vaadin.client.Paintable;
 import com.vaadin.client.UIDL;
@@ -23,137 +25,158 @@ import com.vaadin.shared.ui.Connect;
 @Connect(TextFieldMultiline.class)
 public class TextFieldMultilineConnector extends AbstractFieldConnector implements Paintable {
 
-	// ServerRpc is used to send events to server. Communication implementation
-	// is automatically created here
-	TextFieldMultilineServerRpc rpc = RpcProxy.create(TextFieldMultilineServerRpc.class, this);
+    // ServerRpc is used to send events to server. Communication implementation
+    // is automatically created here
+    TextFieldMultilineServerRpc rpc = RpcProxy.create(TextFieldMultilineServerRpc.class, this);
 
-	public TextFieldMultilineConnector() {
+    public TextFieldMultilineConnector() {
 
-		getWidget().textArea.addBlurHandler(new BlurHandler() {
+        getWidget().textArea.addBlurHandler(new BlurHandler() {
 
-			@Override
-			public void onBlur(com.google.gwt.event.dom.client.BlurEvent event) {
-				getWidget().textArea.setVisible(false);
-				getWidget().textField.setVisible(true);
+            @Override
+            public void onBlur(final com.google.gwt.event.dom.client.BlurEvent event) {
+                getWidget().textArea.setVisible(false);
+                getWidget().textField.setVisible(true);
 
-				setValuesFromTextArea();
+                setValuesFromTextArea();
 
-				setTextFieldString(true);
-			}
-		});
+                setTextFieldString(true);
+            }
+        });
 
-	}
+        getWidget().resetButtonImage.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(final ClickEvent event) {
 
-	private void setValuesFromTextArea() {
-		String[] values = new String[0];
+                getWidget().textArea.setValue("", true);
+                // getWidget().textArea.valueChange(true);
+                // getWidget().textArea.updateFieldContent("");
 
-		String enteredString = getWidget().textArea.getValue();
-		if (!enteredString.isEmpty()) {
-			List<String> entered = new ArrayList<>(Arrays.asList(enteredString.split("\\n+|\\t+")));
-			Iterator<String> it = entered.iterator();
-			while (it.hasNext()) {
-				String next = it.next();
-				if (next.isEmpty()) {
-					it.remove();
-				}
-			}
+                setValuesFromTextArea();
+                setTextFieldString(true);
+            }
+        });
 
-			values = entered.toArray(new String[0]);
-		}
+    }
 
-		getWidget().values = values;
-	}
+    private void setValuesFromTextArea() {
+        String[] values = new String[0];
 
-	private void setTextFieldString(boolean sendToServer) {
-		String[] values = getWidget().values;
+        final String enteredString = getWidget().textArea.getValue();
+        if (!enteredString.isEmpty()) {
+            final List<String> entered = new ArrayList<>(Arrays.asList(enteredString.split("\\n+|\\t+")));
+            final Iterator<String> it = entered.iterator();
+            while (it.hasNext()) {
+                final String next = it.next();
+                if (next.isEmpty()) {
+                    it.remove();
+                }
+            }
 
-		StringBuilder sbTextArea = new StringBuilder();
-		for (int i = 0; i < values.length; i++) {
-			sbTextArea.append(values[i] + "\n");
-		}
-		getWidget().textArea.setValue(sbTextArea.toString());
+            values = entered.toArray(new String[0]);
+        }
 
-		StringBuilder sbTextField = new StringBuilder();
-		if (values.length > 0) {
-			sbTextField.append("(" + values.length + ") ");
-			for (int i = 0; i < values.length; i++) {
-				sbTextField.append(values[i]);
-				if (i + 1 < values.length) {
-					sbTextField.append(", ");
-				}
-			}
-		}
-		getWidget().textField.setValue(sbTextField.toString());
-		debug("textField: " + sbTextField.toString());
+        getWidget().values = values;
+    }
 
-		if (sendToServer) {
-			debug("entered: " + values);
-			this.rpc.sendEnteredValues(values);
-		}
-	}
+    private void setTextFieldString(final boolean sendToServer) {
+        final String[] values = getWidget().values;
 
-	// We must implement getWidget() to cast to correct type
-	// (this will automatically create the correct widget type)
-	@Override
-	public VTextFieldMultiline getWidget() {
-		return (VTextFieldMultiline) super.getWidget();
-	}
+        final StringBuilder sbTextArea = new StringBuilder();
+        for (final String value : values) {
+            sbTextArea.append(value + "\n");
+        }
+        getWidget().textArea.setValue(sbTextArea.toString());
 
-	// We must implement getState() to cast to correct type
-	@Override
-	public TextFieldMultilineState getState() {
-		return (TextFieldMultilineState) super.getState();
-	}
+        final StringBuilder sbTextField = new StringBuilder();
+        if (values.length > 0) {
+            sbTextField.append("(" + values.length + ") ");
+            for (int i = 0; i < values.length; i++) {
+                sbTextField.append(values[i]);
+                if (i + 1 < values.length) {
+                    sbTextField.append(", ");
+                }
+            }
+        }
+        getWidget().textField.setValue(sbTextField.toString());
+        debug("textField: " + sbTextField.toString());
 
-	// Whenever the state changes in the server-side, this method is called
-	@Override
-	public void onStateChanged(StateChangeEvent stateChangeEvent) {
-		// keep this here, because of later changes and easy accesibility
-		super.onStateChanged(stateChangeEvent);
-	}
+        if (sendToServer) {
+            debug("entered: " + values);
+            this.rpc.sendEnteredValues(values);
+        }
+    }
 
-	private void debug(String string) {
-		if (getWidget().enableDebug) {
-			VConsole.error(string);
-		}
-	}
+    // We must implement getWidget() to cast to correct type
+    // (this will automatically create the correct widget type)
+    @Override
+    public VTextFieldMultiline getWidget() {
+        return (VTextFieldMultiline) super.getWidget();
+    }
 
-	@Override
-	public void updateFromUIDL(UIDL uidl, ApplicationConnection client) {
-		debug("updateFromUIDL");
+    // We must implement getState() to cast to correct type
+    @Override
+    public TextFieldMultilineState getState() {
+        return (TextFieldMultilineState) super.getState();
+    }
 
-		// Inverse logic here to make the default case (text input enabled)
-		// work without additional UIDL messages
-		boolean isEnabled = uidl.hasAttribute(TextFieldMultilineConstants.ATTR_ENABLED)
-				&& uidl.getBooleanAttribute(TextFieldMultilineConstants.ATTR_ENABLED);
-		getWidget().textField.setEnabled(isEnabled);
-		getWidget().textField.setStyleName("v-disabled", !isEnabled);
+    // Whenever the state changes in the server-side, this method is called
+    @Override
+    public void onStateChanged(final StateChangeEvent stateChangeEvent) {
+        // keep this here, because of later changes and easy accesibility
+        super.onStateChanged(stateChangeEvent);
+    }
 
-		boolean isReadonly = uidl.hasAttribute(TextFieldMultilineConstants.ATTR_READ_ONLY)
-				&& uidl.getBooleanAttribute(TextFieldMultilineConstants.ATTR_READ_ONLY);
-		getWidget().textField.setReadOnly(isReadonly);
+    private void debug(final String string) {
+        if (getWidget().enableDebug) {
+            VConsole.error(string);
+        }
+    }
 
-		if (uidl.hasAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT)) {
-			// input prompt changed from server
-			getWidget().textField.setPlaceholder(uidl.getStringAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT));
-		} else {
-			getWidget().textField.setPlaceholder("");
-		}
+    @Override
+    public void updateFromUIDL(final UIDL uidl, final ApplicationConnection client) {
+        debug("updateFromUIDL");
 
-		getWidget().textField.setValue(getWidget().textField.getValue());
+        // Inverse logic here to make the default case (text input enabled)
+        // work without additional UIDL messages
+        final boolean isEnabled = uidl.hasAttribute(TextFieldMultilineConstants.ATTR_ENABLED)
+                && uidl.getBooleanAttribute(TextFieldMultilineConstants.ATTR_ENABLED);
+        getWidget().textField.setEnabled(isEnabled);
+        getWidget().textField.setStyleName("v-disabled", !isEnabled);
 
-		// Set the value from server on repaint
-		final UIDL options = uidl.getChildUIDL(0);
+        final boolean isReadonly = uidl.hasAttribute(TextFieldMultilineConstants.ATTR_READ_ONLY)
+                && uidl.getBooleanAttribute(TextFieldMultilineConstants.ATTR_READ_ONLY);
+        getWidget().textField.setReadOnly(isReadonly);
 
-		List<String> values = new ArrayList<>();
+        if (uidl.hasAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT)) {
+            // input prompt changed from server
+            getWidget().textField.setPlaceholder(uidl.getStringAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT));
+        }
+        else {
+            getWidget().textField.setPlaceholder("");
+        }
 
-		for (final Iterator<?> i = options.getChildIterator(); i.hasNext();) {
-			final UIDL optionUidl = (UIDL) i.next();
-			values.add(optionUidl.getStringAttribute("value"));
-		}
-		getWidget().values = values.toArray(new String[values.size()]);
+        getWidget().textField.setValue(getWidget().textField.getValue());
 
-		setTextFieldString(false);
-	}
+        // Set the value from server on repaint
+        final UIDL options = uidl.getChildUIDL(0);
+
+        final List<String> values = new ArrayList<>();
+
+        for (final Iterator<?> i = options.getChildIterator(); i.hasNext();) {
+            final UIDL optionUidl = (UIDL) i.next();
+            values.add(optionUidl.getStringAttribute("value"));
+        }
+        getWidget().values = values.toArray(new String[values.size()]);
+
+        if (!values.isEmpty() && uidl.hasAttribute(TextFieldMultilineConstants.ATTR_RESET_BUTTON_ENABLED)) {
+            getWidget().resetButtonImage.setVisible(true);
+        }
+        else {
+            getWidget().resetButtonImage.setVisible(false);
+        }
+
+        setTextFieldString(false);
+    }
 
 }

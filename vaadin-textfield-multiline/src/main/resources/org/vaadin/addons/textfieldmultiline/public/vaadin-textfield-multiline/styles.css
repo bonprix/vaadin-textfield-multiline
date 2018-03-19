@@ -11,3 +11,22 @@ div.vaadin-textfield-multiline .v-textarea {
 	position: relative;
 	z-index: 5000;
 }
+
+div.vaadin-textfield-multiline {
+	position: relative;
+}
+
+.resetbuttonfortextfieldmultiline-resetbutton {
+    position: absolute;
+	top: 50%;
+	right: 8px;
+	margin-top: -8px; /*half of the height in order be center the middle of the image*/
+	height: 16px;
+	width: 16px;
+	background: url('resetbutton-default.svg') no-repeat center center;
+}
+
+.resetbuttonfortextfieldmultiline-resetbutton:hover {
+    background-image: url('resetbutton-hover.svg');
+    cursor: pointer;
+}

@@ -18,6 +18,7 @@ import com.vaadin.ui.LegacyComponent;
 public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>> implements LegacyComponent {
 
     private String inputPrompt = null;
+    private boolean resetButtonEnabled;
 
     // To process events from the client, we implement ServerRpc
     private final TextFieldMultilineServerRpc rpc = new TextFieldMultilineServerRpc() {
@@ -36,6 +37,15 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
         setValue(new ArrayList<String>(), true);
     }
 
+    public boolean isResetButtonEnabled() {
+        return this.resetButtonEnabled;
+    }
+
+    public void setResetButtonEnabled(final boolean resetButtonEnabled) {
+        this.resetButtonEnabled = resetButtonEnabled;
+        markAsDirty();
+    }
+
     // We must override getState() to cast the state to MyComponentState
     @Override
     protected TextFieldMultilineState getState() {
@@ -44,7 +54,7 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 
     /**
      * Gets the current input prompt.
-     * 
+     *
      * @see #setInputPrompt(String)
      * @return the current input prompt, or null if not enabled
      */
@@ -54,7 +64,7 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 
     /**
      * Sets the input prompt - a textual prompt that is displayed when the select would otherwise be empty, to prompt the user for input.
-     * 
+     *
      * @param inputPrompt the desired input prompt, or null to disable
      */
     public void setInputPrompt(final String inputPrompt) {
@@ -68,16 +78,16 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 
     }
 
-    @Override
-    protected boolean setValue(List<String> newFieldValue, final boolean userOriented) {
-
-        // Null value is not supported by the component, so we always put empty list in case of null
-        if (newFieldValue == null) {
-            newFieldValue = new ArrayList<>();
-        }
-
-        return super.setValue(newFieldValue, userOriented);
-    }
+    // @Override
+    // protected void setValue(List<String> newFieldValue, final boolean repaintIsNotNeeded, final boolean ignoreReadOnly) {
+    //
+    // // Null value is not supported by the component, so we always put empty list in case of null
+    // if (newFieldValue == null) {
+    // newFieldValue = new ArrayList<>();
+    // }
+    //
+    // super.setValue(newFieldValue, repaintIsNotNeeded, ignoreReadOnly);
+    // }
 
     @Override
     public void paintContent(final PaintTarget target) throws PaintException {
@@ -86,6 +96,10 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 
         if (this.inputPrompt != null) {
             target.addAttribute(TextFieldMultilineConstants.ATTR_INPUTPROMPT, this.inputPrompt);
+        }
+
+        if (this.resetButtonEnabled) {
+            target.addAttribute(TextFieldMultilineConstants.ATTR_RESET_BUTTON_ENABLED, true);
         }
 
         target.startTag("options");
