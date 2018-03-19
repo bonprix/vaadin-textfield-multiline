@@ -78,17 +78,6 @@ public class TextFieldMultiline extends com.vaadin.ui.AbstractField<List<String>
 
     }
 
-    // @Override
-    // protected void setValue(List<String> newFieldValue, final boolean repaintIsNotNeeded, final boolean ignoreReadOnly) {
-    //
-    // // Null value is not supported by the component, so we always put empty list in case of null
-    // if (newFieldValue == null) {
-    // newFieldValue = new ArrayList<>();
-    // }
-    //
-    // super.setValue(newFieldValue, repaintIsNotNeeded, ignoreReadOnly);
-    // }
-
     @Override
     public void paintContent(final PaintTarget target) throws PaintException {
         target.addAttribute(TextFieldMultilineConstants.ATTR_ENABLED, isEnabled());

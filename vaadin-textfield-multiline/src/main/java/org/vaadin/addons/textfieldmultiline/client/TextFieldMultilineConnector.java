@@ -49,8 +49,6 @@ public class TextFieldMultilineConnector extends AbstractFieldConnector implemen
             public void onClick(final ClickEvent event) {
 
                 getWidget().textArea.setValue("", true);
-                // getWidget().textArea.valueChange(true);
-                // getWidget().textArea.updateFieldContent("");
 
                 setValuesFromTextArea();
                 setTextFieldString(true);
